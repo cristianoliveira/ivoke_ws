@@ -1,0 +1,8 @@
+class Usuario < ActiveRecord::Base
+  
+ def existe(pFacebookId)
+     usuario = Usuario.where(facebook_id: pFacebookId).first
+     return usuario
+ end
+
+end

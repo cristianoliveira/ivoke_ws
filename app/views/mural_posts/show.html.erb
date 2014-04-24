@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Usuario:</strong>
+  <%= @mural_post.usuario %>
+</p>
+
+<p>
+  <strong>From:</strong>
+  <%= @mural_post.from %>
+</p>
+
+<p>
+  <strong>Latitude:</strong>
+  <%= @mural_post.latitude %>
+</p>
+
+<p>
+  <strong>Longitude:</strong>
+  <%= @mural_post.longitude %>
+</p>
+
+<p>
+  <strong>Message:</strong>
+  <%= @mural_post.message %>
+</p>
+
+<p>
+  <strong>Posted at:</strong>
+  <%= @mural_post.posted_at %>
+</p>
+
+<%= link_to 'Edit', edit_mural_post_path(@mural_post) %> |
+<%= link_to 'Back', mural_posts_path %>

@@ -1,0 +1,3 @@
+<% if @usuario %>
+<%= @usuario.to_json %> 
+<% end if %>

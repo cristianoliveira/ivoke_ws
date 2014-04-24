@@ -1,0 +1,5 @@
+<% if @usuario %>
+json.extract! @usuario, :id 
+<% else %>
+0
+<% end if %>
