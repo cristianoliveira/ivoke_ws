@@ -1,11 +1,12 @@
+include ActiveModel::Serializers::JSON
 class MuralPost < ActiveRecord::Base
-  belongs_to :usuario
+  belongs_to :user
 
+  reverse_geocoded_by :latitude, :longitude
+  #after_validation :reverse_geocode  # auto-fetch address
+ 
   def as_json(options={})
-  super(:only => [:message,:usuario_id,:posted_at],
-        :include => {
-          :usuario => {:only => [:nome]}
-        }
-     )
+  	p 'as_json'
+    super(:include => [:user => { only: [:id ,:name, :facebook_id] }]) 
   end
 end

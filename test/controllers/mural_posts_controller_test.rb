@@ -18,7 +18,7 @@ class MuralPostsControllerTest < ActionController::TestCase
 
   test "should create mural_post" do
     assert_difference('MuralPost.count') do
-      post :create, mural_post: { from: @mural_post.from, latitude: @mural_post.latitude, longitude: @mural_post.longitude, message: @mural_post.message, posted_at: @mural_post.posted_at, usuario_id: @mural_post.usuario_id }
+      post :create, mural_post: { latitude: @mural_post.latitude, longitude: @mural_post.longitude, message: @mural_post.message, user_id: @mural_post.user_id }
     end
 
     assert_redirected_to mural_post_path(assigns(:mural_post))
@@ -35,7 +35,7 @@ class MuralPostsControllerTest < ActionController::TestCase
   end
 
   test "should update mural_post" do
-    patch :update, id: @mural_post, mural_post: { from: @mural_post.from, latitude: @mural_post.latitude, longitude: @mural_post.longitude, message: @mural_post.message, posted_at: @mural_post.posted_at, usuario_id: @mural_post.usuario_id }
+    patch :update, id: @mural_post, mural_post: { latitude: @mural_post.latitude, longitude: @mural_post.longitude, message: @mural_post.message, user_id: @mural_post.user_id }
     assert_redirected_to mural_post_path(assigns(:mural_post))
   end
 

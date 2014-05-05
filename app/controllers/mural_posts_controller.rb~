@@ -7,11 +7,18 @@ class MuralPostsController < ApplicationController
     @mural_posts = MuralPost.all
   end
   
-  #GET /mural_posts/get_nearby/:lat,:long
+  #GET /mural_posts/get_nearby/:lat,:lng,:distance
   def get_nearby
-    @mural_posts = MuralPost.all
+   begin 
+   
+    getLatLngDistanceParameter    
+    
+    @mural_posts = MuralPost.where(:latitude => @lat..@lat+@distance, 
+                                  :longitude => @lng..@lng+@distance)
+    
     render :json => @mural_posts
-  end
+   end  
+ end
 	
   # GET /mural_posts/1
   # GET /mural_posts/1.json
@@ -66,7 +73,7 @@ class MuralPostsController < ApplicationController
       format.json { head :no_content }
     end
   end
-
+  
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_mural_post
@@ -77,4 +84,20 @@ class MuralPostsController < ApplicationController
     def mural_post_params
       params.require(:mural_post).permit(:usuario_id, :from, :latitude, :longitude, :message, :posted_at)
     end
+
+    def getLatLngDistanceParameter
+        p '##DEBUG## EXCEPTION!'
+        pLatLngDistance = params[:lat_lng_distance].to_s.split(',')
+   
+	   @lat      = pLatLngDistance[0].to_i
+	   @lng      = pLatLngDistance[1].to_i
+	   @distance = pLatLngDistance[2].to_i
+         
+         p '##DEBUG## pLatLngDistance '+pLatLngDistance 
+        
+        if @lat.nil? or @lng.nil?
+          p '##DEBUG## EXCEPTION!'
+          raise 'Parameter exceptiont';
+        end  
+    end 
 end

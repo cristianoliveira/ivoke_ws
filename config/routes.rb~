@@ -7,7 +7,7 @@ IvokeComBr::Application.routes.draw do
   post 'usuarios/set_localizacao' => 'usuarios#set_localizacao'; 
  resources :usuarios
   
-  get  'mural_posts/get_nearby/:latitude/:longitude'   => 'mural_posts#get_nearby'
+  get  'mural_posts/get_nearby/:latitude/:longitude'   => 'mural_posts#get_nearby';
  resources :mural_posts
 
   # The priority is based upon order of creation: first created -> highest priority.

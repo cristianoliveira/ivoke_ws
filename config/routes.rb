@@ -1,15 +1,16 @@
 IvokeComBr::Application.routes.draw do
 
-  get  'usuarios/existe' => 'usuarios#existe';
-  post 'usuarios/existe' => 'usuarios#existe'; 
+  resources :debugs
 
-  get  'usuarios/set_localizacao/:latitude/:longitude' => 'usuarios#set_localizacao';
-  post 'usuarios/set_localizacao' => 'usuarios#set_localizacao'; 
- resources :usuarios
-  
-  get  'mural_posts/get_nearby/:latitude/:longitude'   => 'mural_posts#get_nearby';
- resources :mural_posts
+  get  'users/existe' => 'users#existe';
+  post 'users/existe' => 'users#existe'; 
+  resources :users
 
+  get  'mural_posts/get_nearby/:lat_lng_distance'   => 'mural_posts#get_nearby';
+  resources :mural_posts
+
+  post 'debug/log' => 'usuarios#set_localizacao'; 
+ 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

@@ -11,20 +11,31 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140423003517) do
+ActiveRecord::Schema.define(version: 20140504201714) do
 
-  create_table "mural_posts", force: true do |t|
-    t.integer  "usuario_id"
-    t.string   "from"
-    t.float    "latitude"
-    t.float    "longitude"
+  create_table "debugs", force: true do |t|
     t.string   "message"
-    t.datetime "posted_at"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  add_index "mural_posts", ["usuario_id"], name: "index_mural_posts_on_usuario_id"
+  create_table "mural_posts", force: true do |t|
+    t.integer  "user_id"
+    t.float    "latitude"
+    t.float    "longitude"
+    t.string   "message"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "mural_posts", ["user_id"], name: "index_mural_posts_on_user_id"
+
+  create_table "users", force: true do |t|
+    t.string   "name"
+    t.string   "facebook_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "usuario_localizacaos", force: true do |t|
     t.integer  "usuario_id"

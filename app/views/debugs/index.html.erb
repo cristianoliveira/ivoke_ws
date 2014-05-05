@@ -1,0 +1,27 @@
+<h1>Listing debugs</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Message</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @debugs.each do |debug| %>
+      <tr>
+        <td><%= debug.message %></td>
+        <td><%= link_to 'Show', debug %></td>
+        <td><%= link_to 'Edit', edit_debug_path(debug) %></td>
+        <td><%= link_to 'Destroy', debug, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Debug', new_debug_path %>

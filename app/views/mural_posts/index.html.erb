@@ -3,12 +3,10 @@
 <table>
   <thead>
     <tr>
-      <th>Usuario</th>
-      <th>From</th>
+      <th>User</th>
       <th>Latitude</th>
       <th>Longitude</th>
       <th>Message</th>
-      <th>Posted at</th>
       <th></th>
       <th></th>
       <th></th>
@@ -18,12 +16,10 @@
   <tbody>
     <% @mural_posts.each do |mural_post| %>
       <tr>
-        <td><%= mural_post.usuario %></td>
-        <td><%= mural_post.from %></td>
+        <td><%= mural_post.user %></td>
         <td><%= mural_post.latitude %></td>
         <td><%= mural_post.longitude %></td>
         <td><%= mural_post.message %></td>
-        <td><%= mural_post.posted_at %></td>
         <td><%= link_to 'Show', mural_post %></td>
         <td><%= link_to 'Edit', edit_mural_post_path(mural_post) %></td>
         <td><%= link_to 'Destroy', mural_post, method: :delete, data: { confirm: 'Are you sure?' } %></td>
