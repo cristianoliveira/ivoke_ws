@@ -78,6 +78,50 @@ class UsersController < ApplicationController
       end
   end
 
+  def registre_google_device
+      device_reg_id = params[:device_reg_id]
+      user_id       = params[:user_id]
+
+      user = User.find(user_id)
+
+      if(!user.google_devices.where(registration_id: device_reg_id).first)
+        p "USER "+user.to_s
+        device = user.google_devices.new(registration_id: device_reg_id)
+
+        if device.save
+          render json: {"result"=>"Registation sucess.", "result_code" => "1"}
+        else
+          render json: user.google_devices.errors
+        end
+      else
+          render json: user.google_devices
+      end
+  end
+
+  def unregistre_google_device
+      device_reg_id = params[:device_reg_id]
+      user_id       = params[:user_id]
+
+      user = User.find(user_id)
+      device = user.google_devices.where(registration_id: device_reg_id)
+      if(device[0])
+        if device[0].delete
+          render json: {"result"=>"sucess","result_code"=>"1"}
+        else
+          render json: device.errors
+        end
+      else
+          render json: {"result"=>"No device found.", "result_code"=>"0"}
+      end
+  end
+
+  def get_google_devices
+      user    = User.find(params[:user_id])
+      devices = user.google_devices.load
+      
+      render json: user.google_devices
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_user

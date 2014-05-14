@@ -1,0 +1,35 @@
+<h1>Listing conversation_messages</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Conversation</th>
+      <th>User</th>
+      <th>Message</th>
+      <th>Time</th>
+      <th>Status</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @conversation_messages.each do |conversation_message| %>
+      <tr>
+        <td><%= conversation_message.conversation %></td>
+        <td><%= conversation_message.user %></td>
+        <td><%= conversation_message.message %></td>
+        <td><%= conversation_message.time %></td>
+        <td><%= conversation_message.status %></td>
+        <td><%= link_to 'Show', conversation_message %></td>
+        <td><%= link_to 'Edit', edit_conversation_message_path(conversation_message) %></td>
+        <td><%= link_to 'Destroy', conversation_message, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Conversation message', new_conversation_message_path %>

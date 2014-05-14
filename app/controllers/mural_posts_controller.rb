@@ -1,5 +1,4 @@
 class MuralPostsController < ApplicationController
-   skip_before_filter :verify_authenticity_token
    before_action :set_mural_post, only: [:show, :edit, :update, :destroy]
 
   # GET /mural_posts
@@ -29,10 +28,10 @@ class MuralPostsController < ApplicationController
   def create
     p "## TESTE #" 
     @mural_post = MuralPost.new( user_id:   params[:user_id], 
-                                latitude:  params[:latitude], 
-                                longitude: params[:longitude], 
-                                message:   params[:message]
-                               )
+                                 latitude:  params[:latitude], 
+                                 longitude: params[:longitude], 
+                                 message:   params[:message]
+                               ).order(:id)
 
     respond_to do |format|
       if @mural_post.save
@@ -64,6 +63,16 @@ class MuralPostsController < ApplicationController
   # DELETE /mural_posts/1.json
   def destroy
     @mural_post.destroy
+    respond_to do |format|
+      format.html { redirect_to mural_posts_url }
+      format.json { head :no_content }
+    end
+  end
+
+  def delete
+    @mural_post = MuralPost.find(params[:id])
+    @mural_post.destroy
+
     respond_to do |format|
       format.html { redirect_to mural_posts_url }
       format.json { head :no_content }

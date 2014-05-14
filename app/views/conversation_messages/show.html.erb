@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Conversation:</strong>
+  <%= @conversation_message.conversation %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @conversation_message.user %>
+</p>
+
+<p>
+  <strong>Message:</strong>
+  <%= @conversation_message.message %>
+</p>
+
+<p>
+  <strong>Time:</strong>
+  <%= @conversation_message.time %>
+</p>
+
+<p>
+  <strong>Status:</strong>
+  <%= @conversation_message.status %>
+</p>
+
+<%= link_to 'Edit', edit_conversation_message_path(@conversation_message) %> |
+<%= link_to 'Back', conversation_messages_path %>

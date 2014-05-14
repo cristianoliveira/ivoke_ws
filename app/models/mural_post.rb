@@ -6,7 +6,6 @@ class MuralPost < ActiveRecord::Base
   #after_validation :reverse_geocode  # auto-fetch address
  
   def as_json(options={})
-  	p 'as_json'
     super(:include => [:user => { only: [:id ,:name, :facebook_id] }]) 
   end
 end
