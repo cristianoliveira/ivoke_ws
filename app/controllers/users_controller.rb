@@ -1,3 +1,4 @@
+# encoding: UTF-8
 class UsersController < ApplicationController
    skip_before_filter :verify_authenticity_token
    before_action :set_user, only: [:show, :edit, :update, :destroy]
@@ -36,6 +37,26 @@ class UsersController < ApplicationController
         format.json { render json: @user.errors, status: :unprocessable_entity }
       end
     end
+  end
+
+  def add_new
+
+    if(User.where(facebook_id: params[:facebook_id]).first)
+      return
+    end
+
+    p "#$$$$ params[:name].to_s "+params[:name].to_s.force_encoding("UTF-8")
+
+    @user = User.new(name:    params[:name].to_s, 
+                     gender:  params[:gender].to_s,
+                     facebook_id: params[:facebook_id].to_s)
+
+     if @user.save
+        render :json => @user
+      else
+        render :json => @user.errors, status: :unprocessable_entity 
+      end
+    
   end
 
   # PATCH/PUT /users/1

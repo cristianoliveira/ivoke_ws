@@ -1,10 +1,11 @@
 class DebugsController < ApplicationController
+  skip_before_filter :verify_authenticity_token
   before_action :set_debug, only: [:show, :edit, :update, :destroy]
 
   # GET /debugs
   # GET /debugs.json
   def index
-    @debugs = Debug.all
+    @debugs = LogError.all
   end
 
   # GET /debugs/1
@@ -57,6 +58,28 @@ class DebugsController < ApplicationController
       format.html { redirect_to debugs_url }
       format.json { head :no_content }
     end
+  end
+
+  def acra_report
+
+    @log_error = LogError.new(app_version_name: params[:APP_VERSION_NAME],
+                              report_id: params[:REPORT_ID],
+                              android_version: params[:ANDROID_VERSION],
+                              phone_model: params[:PHONE_MODEL],
+                              stack_trace: params[:STACK_TRACE],
+                              setting_global: params[:SETTING_GLOBAL],
+                              shared_preferences: params[:SHARED_PREFERENCES],
+                              brand: params[:BRAND]
+                              )
+
+    @log_error.save
+
+    render :json => @log_error
+  end
+
+  def show_all
+      @log_errors = LogError.all
+
   end
 
   private

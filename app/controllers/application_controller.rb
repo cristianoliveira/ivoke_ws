@@ -10,7 +10,7 @@ class ApplicationController < ActionController::Base
   #       	     exception: exception.to_s,
   #       	     cause:     exception.cause()
   #       	    }
-  #      
+       
   #      render :json => error
   #  end
 

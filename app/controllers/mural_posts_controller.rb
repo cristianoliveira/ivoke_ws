@@ -30,9 +30,10 @@ class MuralPostsController < ApplicationController
     @mural_post = MuralPost.new( user_id:   params[:user_id], 
                                  latitude:  params[:latitude], 
                                  longitude: params[:longitude], 
-                                 message:   params[:message]
-                               ).order(:id)
-
+                                 message:   params[:message],
+                                 anonymous: params[:anonymous]
+                               )
+    
     respond_to do |format|
       if @mural_post.save
         format.html { redirect_to @mural_post, notice: 'Mural post was successfully created.' }
@@ -42,6 +43,23 @@ class MuralPostsController < ApplicationController
         format.html { render action: 'new' }
         format.json { render json: @mural_post.errors, status: :unprocessable_entity }
       end
+    end
+  end
+
+  def create_on_place
+    p "## TESTE #" 
+    @mural_post = MuralPost.new( user_id:   params[:user_id], 
+                                 latitude:  params[:latitude], 
+                                 longitude: params[:longitude], 
+                                 message:   params[:message],
+                                 anonymous: params[:anonymous],
+                                 place_id:  params[:place_id]
+                               )
+    
+    if @mural_post.save
+       render json: @mural_post
+    else
+       render json: @mural_post.errors
     end
   end
 
@@ -80,10 +98,29 @@ class MuralPostsController < ApplicationController
   end
 
   def get_nearby
-    lat_lng_distance_parameters  
+    lat_lng_distance_parameters 
     
-    @mural_posts = MuralPost.near([@lat, @lng], @distance) 
-    
+    show_anonymous_post = params[:anonymous].to_s
+
+    p '## params[:anonymous] = '+params[:anonymous].to_s
+    if show_anonymous_post == "0"
+       @mural_posts = MuralPost.near([@lat, @lng], @distance).where("place_id = 'null' and anonymous = 0").reorder("id DESC") 
+    else
+       @mural_posts = MuralPost.near([@lat, @lng], @distance).where("place_id = 'null'").reorder("id DESC") 
+    end
+    render :json => @mural_posts
+  end
+
+  def get_from_place
+
+    show_anonymous_post = params[:anonymous].to_s
+
+    p '## params[:anonymous] = '+params[:anonymous].to_s
+    if show_anonymous_post == "0"
+       @mural_posts = MuralPost.where(place_id: params[:place_id], anonymous: 0).order("id DESC") 
+    else
+       @mural_posts = MuralPost.where(place_id: params[:place_id]).order("id DESC") 
+    end
     render :json => @mural_posts
   end
 
@@ -102,9 +139,9 @@ private
         p '##DEBUG## EXCEPTION!'
         pLatLngDistance = params[:lat_lng_distance].to_s.gsub(',','.').split(';')
    
-       @lat      = pLatLngDistance[0].to_f
-       @lng      = pLatLngDistance[1].to_f
-       @distance = pLatLngDistance[2].to_f
+       @lat       = pLatLngDistance[0].to_f
+       @lng       = pLatLngDistance[1].to_f
+       @distance  = pLatLngDistance[2].to_f
            
          p '##DEBUG## pLatLngDistance '+pLatLngDistance.to_s
         

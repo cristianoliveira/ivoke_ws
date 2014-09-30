@@ -3,6 +3,7 @@
 <table>
   <thead>
     <tr>
+      <th>Data</th>
       <th>User</th>
       <th>Latitude</th>
       <th>Longitude</th>
@@ -16,6 +17,7 @@
   <tbody>
     <% @mural_posts.each do |mural_post| %>
       <tr>
+        <td><%= mural_post.created_at %></td>
         <td><%= mural_post.user %></td>
         <td><%= mural_post.latitude %></td>
         <td><%= mural_post.longitude %></td>

@@ -1,0 +1,41 @@
+<h1>Listing Errors</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Data</th>
+      <th>Report ID</th>
+      <th>App_version_name</th>
+      <th>Android_version</th>
+      <th>Phone_model</th>
+      <th>Brand</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @log_errors.each do |debug| %>
+      <tr bgcolor="#C0C0C0">
+        <td><%= debug.created_at %></td>
+        <td><%= debug.report_id %></td>
+        <td><%= debug.app_version_name %></td>
+        <td><%= debug.android_version %></td>
+        <td><%= debug.phone_model %></td>
+        <td><%= debug.brand %></td>
+      </tr>
+      <tr>
+        <td colspan="1">Stack_trace:</td>
+        <td colspan="5"><%= debug.stack_trace %></td>
+      </tr>
+      <tr>
+         <td colspan="1">Setting_global:</td>
+         <td colspan="5"><%= debug.setting_global %></td>
+      </tr>
+      <tr>
+        <td colspan="1">Shared_preferences:</td>
+        <td colspan="5"><%= debug.shared_preferences %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>

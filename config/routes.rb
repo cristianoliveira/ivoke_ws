@@ -1,9 +1,13 @@
 IvokeComBr::Application.routes.draw do
 
+  resources :feedbacks
+
   get  'places/get_nearby/:latitude/:longitude/:distance' => 'places#get_nearby'
   post 'places/get_nearby' => 'places#get_nearby'
   resources :places
 
+  post 'debugs/acra_report' => 'debugs#acra_report'; 
+  get 'log_error/show_all'    => 'debugs#show_all'; 
   resources :debugs
   
   get  'users/registre_google_device/:user_id/:device_reg_id' => 'users#registre_google_device';
@@ -17,10 +21,17 @@ IvokeComBr::Application.routes.draw do
   
   get  'users/existe' => 'users#existe';
   post 'users/existe' => 'users#existe'; 
+  
+  post 'users/add_new' => 'users#add_new'; 
+  
   resources :users
 
-  get  'mural_posts/get_nearby/:lat_lng_distance'   => 'mural_posts#get_nearby';
-  post 'mural_posts/delete'                         => 'mural_posts#delete'
+  get  'mural_posts/get_nearby/:lat_lng_distance/:anonymous'   => 'mural_posts#get_nearby';
+  get  'mural_posts/get_from_place/:place_id/:anonymous'       => 'mural_posts#get_from_place';
+  post 'mural_posts/get_from_place/'                           => 'mural_posts#get_from_place';
+  
+  post 'mural_posts/delete'                          => 'mural_posts#delete'
+  post 'mural_posts/create_on_place'                 => 'mural_posts#create_on_place'
   resources :mural_posts
 
   post 'debug/log' => 'usuarios#set_localizacao'; 
